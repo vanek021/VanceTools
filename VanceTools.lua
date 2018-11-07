@@ -8,7 +8,7 @@ local inicfg = require 'inicfg'
 local encoding = require 'encoding'
 local json = require ("dkjson")
 local font = renderCreateFont("Arial", 11, 13)
-local сfont = renderCreateFont("Arial", 9, 13)
+local Г±font = renderCreateFont("Arial", 9, 13)
 local config = inicfg.load(nil, "cfg.ini")
 local admins = {}
 local time = os.clock() * 1000
@@ -21,10 +21,10 @@ require "lib.moonloader"
 local mem = require "memory"
 
 --// *** // *** //--
-whVisible = "names" -- Мод ВХ по умолчанию. Моды написаны в комментарии ниже
-optionsCommand = "names" -- Моды ВХ: bones - только кости / names - только ники, all - всё сразу
-KEY = VK_F11 -- Кнопка активации ВХ
-defaultState = false -- Запуск ВХ при старте игры
+whVisible = "names" -- ГЊГ®Г¤ Г‚Г• ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ. ГЊГ®Г¤Г» Г­Г ГЇГЁГ±Г Г­Г» Гў ГЄГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГЁ Г­ГЁГ¦ГҐ
+optionsCommand = "names" -- ГЊГ®Г¤Г» Г‚Г•: bones - ГІГ®Г«ГјГЄГ® ГЄГ®Г±ГІГЁ / names - ГІГ®Г«ГјГЄГ® Г­ГЁГЄГЁ, all - ГўГ±Вё Г±Г°Г Г§Гі
+KEY = VK_F11 -- ГЉГ­Г®ГЇГЄГ  Г ГЄГІГЁГўГ Г¶ГЁГЁ Г‚Г•
+defaultState = false -- Г‡Г ГЇГіГ±ГЄ Г‚Г• ГЇГ°ГЁ Г±ГІГ Г°ГІГҐ ГЁГЈГ°Г»
 gm = false
 airbrake = false
 achecker = true
@@ -39,7 +39,7 @@ u8 = encoding.UTF8
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(100) end
-	sampAddChatMessage("{FF8000}[VanceTools] {CED8F6}Скрипт загружен. (by I.Karimov)", 0xCED8F6)
+	sampAddChatMessage("{FF8000}[VanceTools] {CED8F6}Г‘ГЄГ°ГЁГЇГІ Г§Г ГЈГ°ГіГ¦ГҐГ­. (by I.Karimov)", 0xCED8F6)
 	sampRegisterChatCommand("asetpos", function() _asetpos:run() end)
 	_asetpos = lua_thread.create_suspended(achecker_setpos)
 	sampRegisterChatCommand("lsetpos", function() _lsetpos:run() end)
@@ -78,14 +78,14 @@ function sampev.onPlayerQuit(playerId, reason)
 	checker()
 end
 function initialise()
-    ----------------------Настройки-------------------------
+    ----------------------ГЌГ Г±ГІГ°Г®Г©ГЄГЁ-------------------------
 	if config == nil then
 		cfg = io.open(getWorkingDirectory()..'\\config\\cfg.ini',"w")
 		cfg:write("[settings]\naposX=1500\naposY=300\nlposX=1700\nlposY=400\nhposX=1200\nhposY=300")
 		cfg:close()
 	end
 	connected = true
-	------------------------Чекер----------------------------
+	------------------------Г—ГҐГЄГҐГ°----------------------------
 	file = io.open(getWorkingDirectory().."\\config\\admins.txt","r")
 	if file == nil then 
 		file = io.open(getWorkingDirectory()..'\\config\\admins.txt',"w")
@@ -122,7 +122,7 @@ while not sampIsLocalPlayerSpawned() do wait(100) end
 	while true do
 		wait(0)
 		if wasKeyPressed(KEY) then
-			if defaultState then sampAddChatMessage("[VanceTools] Вы дективировали WH.",0x3399ff) else sampAddChatMessage("[VanceTools] Вы активировали WH.",0x3399ff) end
+			if defaultState then sampAddChatMessage("[VanceTools] Г‚Г» Г¤ГҐГЄГІГЁГўГЁГ°Г®ГўГ Г«ГЁ WH.",0x3399ff) else sampAddChatMessage("[VanceTools] Г‚Г» Г ГЄГІГЁГўГЁГ°Г®ГўГ Г«ГЁ WH.",0x3399ff) end
 			if defaultState then
 				defaultState = false; 
 				nameTagOff(); 
@@ -277,19 +277,19 @@ function checker()
 end
 function checker_show()
 	while true do
-		--renderFontDrawText(font, "Администраторы в сети:", config.settings.aposX, config.settings.aposY-20, 0xFFF89306)
+		--renderFontDrawText(font, "ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г» Гў Г±ГҐГІГЁ:", config.settings.aposX, config.settings.aposY-20, 0xFFF89306)
 		--renderFontDrawText(font, atext, config.settings.aposX, config.settings.aposY, 0xFFFFFFFF)
 
-		if achecker then renderFontDrawText(font, "Администраторы в сети:", config.settings.aposX, config.settings.aposY-20, 0xFFF89306)
+		if achecker then renderFontDrawText(font, "ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г» Гў Г±ГҐГІГЁ:", config.settings.aposX, config.settings.aposY-20, 0xFFF89306)
 		renderFontDrawText(font, atext, config.settings.aposX, config.settings.aposY, 0xFFFFFFFF) end
-		if lchecker then renderFontDrawText(font, "Лидеры в сети:", config.settings.lposX, config.settings.lposY-20, 0xFF36F84A)
+		if lchecker then renderFontDrawText(font, "Г‹ГЁГ¤ГҐГ°Г» Гў Г±ГҐГІГЁ:", config.settings.lposX, config.settings.lposY-20, 0xFF36F84A)
 		renderFontDrawText(font, ltext, config.settings.lposX, config.settings.lposY, 0xFFFFFFFF) end
-		if hchecker then renderFontDrawText(font, "Агенты в сети:", config.settings.hposX, config.settings.hposY-20, 0xFF3DA2FB) 
+		if hchecker then renderFontDrawText(font, "ГЂГЈГҐГ­ГІГ» Гў Г±ГҐГІГЁ:", config.settings.hposX, config.settings.hposY-20, 0xFF3DA2FB) 
 		renderFontDrawText(font, htext, config.settings.hposX, config.settings.hposY, 0xFFFFFFFF) end
 		renderDrawBox(config.settings.cposX, config.settings.cposY, 140, 20, 0xAA000000, 1, 0x90000000)
-		if gm then renderFontDrawText(сfont, "GM", config.settings.cposX+10, config.settings.cposY, 0xFF04B431) else renderFontDrawText(сfont, "GM", config.settings.cposX+10, config.settings.cposY, 0xFFBDBDBD) end
-		if defaultState then renderFontDrawText(сfont, "WH", config.settings.cposX+40, config.settings.cposY, 0xFF04B431) else renderFontDrawText(сfont, "WH", config.settings.cposX+40, config.settings.cposY, 0xFFBDBDBD) end
-		if config.settings.airbrake then renderFontDrawText(сfont, "AirBrake", config.settings.cposX+75, config.settings.cposY, 0xFF04B431) else renderFontDrawText(сfont, "AirBrake", config.settings.cposX+75, config.settings.cposY, 0xFFBDBDBD) end
+		if gm then renderFontDrawText(Г±font, "GM", config.settings.cposX+10, config.settings.cposY, 0xFF04B431) else renderFontDrawText(Г±font, "GM", config.settings.cposX+10, config.settings.cposY, 0xFFBDBDBD) end
+		if defaultState then renderFontDrawText(Г±font, "WH", config.settings.cposX+40, config.settings.cposY, 0xFF04B431) else renderFontDrawText(Г±font, "WH", config.settings.cposX+40, config.settings.cposY, 0xFFBDBDBD) end
+		if config.settings.airbrake then renderFontDrawText(Г±font, "AirBrake", config.settings.cposX+75, config.settings.cposY, 0xFF04B431) else renderFontDrawText(Г±font, "AirBrake", config.settings.cposX+75, config.settings.cposY, 0xFFBDBDBD) end
 		wait(0) 
 	end
 end
@@ -372,19 +372,19 @@ function explode_argb(argb)
 end
 function GMstate()
 	gm = not gm
-	if gm then sampAddChatMessage("[VanceTools] GM активирован.",0x3399ff) else sampAddChatMessage("[VanceTools] GM деактивирован.", 0x3399ff) end
+	if gm then sampAddChatMessage("[VanceTools] GM Г ГЄГІГЁГўГЁГ°Г®ГўГ Г­.",0x3399ff) else sampAddChatMessage("[VanceTools] GM Г¤ГҐГ ГЄГІГЁГўГЁГ°Г®ГўГ Г­.", 0x3399ff) end
 end
 function set_achecker()
 	achecker = not achecker
-	if achecker then sampAddChatMessage("[VanceTools] Чекер админов включен.", 0x3399ff) else sampAddChatMessage("[VanceTools] Чекер админов выключен.", 0x3399ff) end
+	if achecker then sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г Г¤Г¬ГЁГ­Г®Гў ГўГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) else sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г Г¤Г¬ГЁГ­Г®Гў ГўГ»ГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) end
 end
 function set_lchecker()
 	lchecker = not lchecker
-	if lchecker then sampAddChatMessage("[VanceTools] Чекер лидеров включен.", 0x3399ff) else sampAddChatMessage("[VanceTools] Чекер лидеров выключен.", 0x3399ff) end
+	if lchecker then sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г«ГЁГ¤ГҐГ°Г®Гў ГўГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) else sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г«ГЁГ¤ГҐГ°Г®Гў ГўГ»ГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) end
 end
 function set_hchecker()
 	hchecker = not hchecker
-	if hchecker then sampAddChatMessage("[VanceTools] Чекер саппортов включен.", 0x3399ff) else sampAddChatMessage("[VanceTools] Чекер саппортов выключен.", 0x3399ff) end
+	if hchecker then sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г±Г ГЇГЇГ®Г°ГІГ®Гў ГўГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) else sampAddChatMessage("[VanceTools] Г—ГҐГЄГҐГ° Г±Г ГЇГЇГ®Г°ГІГ®Гў ГўГ»ГЄГ«ГѕГ·ГҐГ­.", 0x3399ff) end
 end
 function getregs()
 		sr=tonumber(idreg)
@@ -395,7 +395,7 @@ function getregs()
 
 		end
 		if name == "" then
-		sampAddChatMessage("[A] Введите /getreg [ID игрока /ник]",0xFFA500)
+		sampAddChatMessage("[A] Г‚ГўГҐГ¤ГЁГІГҐ /getreg [ID ГЁГЈГ°Г®ГЄГ  /Г­ГЁГЄ]",0xFFA500)
 		end
 		if name ~= "" then
 
@@ -452,13 +452,13 @@ function getregs()
 					pr2=obj2.isp
 				end
 			regmain=""
-			regmain=regmain.."{E6E6E6}Регистр. IP:		"..rg1.."\n".."{E6E6E6}Город регистрации:	"..outreg1.."\n".."{E6E6E6}Область:		"..oreg.."\n".."{E6E6E6}Страна:		"..outreg2.."\n".."{E6E6E6}Провайдер:		"..pr.."\n".."\n\n".."{E6E6E6}Послед. IP:		"..rg2.."\n".."{E6E6E6}Текущий город:	"..outreg3.."\n".."{E6E6E6}Область:		"..oreg2.."\n".."{E6E6E6}Страна:		"..outreg4
+			regmain=regmain.."{E6E6E6}ГђГҐГЈГЁГ±ГІГ°. IP:		"..rg1.."\n".."{E6E6E6}ГѓГ®Г°Г®Г¤ Г°ГҐГЈГЁГ±ГІГ°Г Г¶ГЁГЁ:	"..outreg1.."\n".."{E6E6E6}ГЋГЎГ«Г Г±ГІГј:		"..oreg.."\n".."{E6E6E6}Г‘ГІГ°Г Г­Г :		"..outreg2.."\n".."{E6E6E6}ГЏГ°Г®ГўГ Г©Г¤ГҐГ°:		"..pr.."\n".."\n\n".."{E6E6E6}ГЏГ®Г±Г«ГҐГ¤. IP:		"..rg2.."\n".."{E6E6E6}Г’ГҐГЄГіГ№ГЁГ© ГЈГ®Г°Г®Г¤:	"..outreg3.."\n".."{E6E6E6}ГЋГЎГ«Г Г±ГІГј:		"..oreg2.."\n".."{E6E6E6}Г‘ГІГ°Г Г­Г :		"..outreg4
 	
 			rasstoyanie=math.floor(calcDist(la1,lo1,la2,lo2))
 			vremya=math.floor(rasstoyanie/80)
 			tt=rasstoyanie/80*60
 			vremya2=math.floor(math.fmod(tt, 60))
-			sampShowDialog(34343, "{0080FF}Регистрационные данные", "{E6E6E6}Ник игрока:		"..nameplayer.."\n".."\n\n"..regmain.."\n".."{E6E6E6}Провайдер:		"..pr2.."\n\n".."{E6E6E6}Расстояние:		"..rasstoyanie.." километров".."\n".."{E6E6E6}Время в пути:		"..vremya.." часа(ов) "..vremya2.." минут", "Закрыть", "", 0)	
+			sampShowDialog(34343, "{0080FF}ГђГҐГЈГЁГ±ГІГ°Г Г¶ГЁГ®Г­Г­Г»ГҐ Г¤Г Г­Г­Г»ГҐ", "{E6E6E6}ГЌГЁГЄ ГЁГЈГ°Г®ГЄГ :		"..nameplayer.."\n".."\n\n"..regmain.."\n".."{E6E6E6}ГЏГ°Г®ГўГ Г©Г¤ГҐГ°:		"..pr2.."\n\n".."{E6E6E6}ГђГ Г±Г±ГІГ®ГїГ­ГЁГҐ:		"..rasstoyanie.." ГЄГЁГ«Г®Г¬ГҐГІГ°Г®Гў".."\n".."{E6E6E6}Г‚Г°ГҐГ¬Гї Гў ГЇГіГІГЁ:		"..vremya.." Г·Г Г±Г (Г®Гў) "..vremya2.." Г¬ГЁГ­ГіГІ", "Г‡Г ГЄГ°Г»ГІГј", "", 0)	
 		end
 	end
 		function calcDist(lat1, lon1, lat2, lon2)
@@ -475,3 +475,11 @@ function getregs()
     dist = 6371 * c      -- multiply by 0.621371 to convert to miles
     return dist
 	end
+function checkUpdate()
+local dlstatus = require('moonloader').download_status
+downloadUrlToFile("http://example.com/my_script.lua", thisScript().path, function(id, status)
+  if status == dlstatus.STATUS_ENDDOWNLOADDATA then
+    thisScript():reload()
+  end
+end)
+end
